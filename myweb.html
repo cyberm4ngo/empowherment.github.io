@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script>
+        // Function to read CSV data (replace this with your actual implementation)
+        let csvFilename = 'Salary_data.csv';
+        function read_csv(csvFilename) {
+            // Your CSV reading logic here
+            // Return the parsed data
+        }
+
+        // Your actual data loading and filtering logic here
+        // For the purpose of this example, I'm using a placeholder for df
+        let df = [
+            { 'Gender': 'Male', 'Job Title': 'Engineer', 'Education Level': 'Bachelor\'s', 'Years of Experience': 5, 'Salary': 60000 },
+            // Add more data as needed
+        ];
+
+        // Filter only male data
+        let male_df = df.filter(function(row) {
+            return row['Gender'] === 'Male';
+        });
+
+        // Remove unnecessary columns
+        male_df = male_df.map(function(row) {
+            delete row['Gender'];
+            delete row['Age'];
+            return row;
+        });
+
+        // Example function for debugging (replace this with actual data loading logic)
+        function loadData() {
+            // Display loaded data in the console for debugging
+            console.log(male_df);
+
+            // Take user input
+            let user_edu = prompt("Do you have a Highschool Diploma, Bachelor's, Master's, or PhD?");
+            let user_job = prompt("What is your job title?");
+            let user_YOE = parseInt(prompt("How many years of experience do you have?"));  // Convert input to integer
+            let user_salary = parseFloat(prompt("What is your salary?"));  // Convert input to float
+
+            // Filter and calculate average salary
+            let filteredData = male_df.filter(function(row) {
+                return row['Job Title'] === user_job && row['Education Level'] === user_edu && row['Years of Experience'] === user_YOE;
+            });
+
+            let average_salary = 0;
+
+            if (filteredData.length > 0) {
+                average_salary = filteredData.map(function(row) {
+                    return row['Salary'];
+                }).reduce((acc, val) => acc + val, 0) / filteredData.length;
+            }
+
+            // Check if there are matching records
+            if (!isNaN(average_salary)) {
+                alert(`Estimated average salary for someone with ${user_YOE} years of experience, a ${user_edu} degree, and working as a ${user_job}: $${average_salary.toFixed(2)}`);
+            } else {
+                // Handle other cases as needed
+                alert("No matching records found.");
+            }
+        }
+
+        // Call the function to load and process data
+        loadData();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+
